@@ -15,7 +15,7 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     //TODO: Avoid Null Pointer Exception
-    ListContainer CommonLists;
+    ListContainer CommonLists = new ListContainer();
     public static final String JSON_DATA = "JSON_DATA";
     public static final String APP_PREFS = "APPLICATION_PREFERENCES";
 
