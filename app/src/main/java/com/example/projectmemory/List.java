@@ -8,5 +8,5 @@ public class List {
 
     public List(String name){
         this.name = name;
-    }
+        this.items = new ArrayList<>();}
 }

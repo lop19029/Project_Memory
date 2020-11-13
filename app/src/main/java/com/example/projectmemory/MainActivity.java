@@ -14,8 +14,8 @@ import com.google.gson.Gson;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-    //TODO: Avoid Null Pointer Exception
-    ListContainer CommonLists = new ListContainer();
+
+    ListContainer CommonLists;
     public static final String JSON_DATA = "JSON_DATA";
     public static final String APP_PREFS = "APPLICATION_PREFERENCES";
 
@@ -48,9 +48,9 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
         //Prepare JSON data
-        CommonLists.parseLists();
-        //Save each list in JSON_LIST
-        editor.putString(JSON_DATA, CommonLists.JSON_LISTS);
+        Gson gson = new Gson();
+        String json = gson.toJson(CommonLists);
+        editor.putString(JSON_DATA, json);
         editor.apply();
     }
 
@@ -62,7 +62,13 @@ public class MainActivity extends AppCompatActivity {
         //Deserialize
         Gson gson = new Gson();
         ListContainer savedCommonLists = gson.fromJson(listContainers, ListContainer.class);
-        this.CommonLists = savedCommonLists;
 
+        //Check for null
+        if (savedCommonLists == null){
+            CommonLists = new ListContainer();
+        }
+        else{
+            this.CommonLists = savedCommonLists;
+        }
     }
 }
