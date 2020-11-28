@@ -82,11 +82,13 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences(APP_PREFS, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
+
         //Prepare JSON data
         Gson gson = new Gson();
         String json = gson.toJson(CommonLists);
         editor.putString(COMMON_JSON_DATA, json);
         editor.apply();
+        editor.clear().apply();
 
     }
     /**
@@ -95,8 +97,12 @@ public class MainActivity extends AppCompatActivity {
      *     Deserialize all the JSON objects from SharedPreferences
      *     and load them as {@link com.example.projectmemory.ListContainer}s
      * </p>*/
+
     public void loadLists(){
         SharedPreferences sharedPreferences = getSharedPreferences(APP_PREFS, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.clear().apply();
+
         //Load shared preferences
         String listContainers = sharedPreferences.getString(COMMON_JSON_DATA, null);
 

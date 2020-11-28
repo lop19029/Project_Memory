@@ -7,17 +7,19 @@ import java.util.ArrayList;
 public class List {
     String name;
     ArrayList<ListItem> items;
-    ArrayList<String> names;
+    ArrayList<String> itemsNames;
 
     public List(String name){
         this.name = name;
         this.items = new ArrayList<>();
-        this.names = new ArrayList<>();
+        this.itemsNames = new ArrayList<>();
     }
     public void addItem(String itemName){
         ListItem item = new ListItem(itemName);
         this.items.add(item);
-        this.names.add(itemName);
-
+        if(this.itemsNames == null){
+            this.itemsNames = new ArrayList<>();
+        }
+        this.itemsNames.add(itemName);
     }
 }

@@ -15,7 +15,7 @@ import com.google.gson.Gson;
 import java.util.ArrayList;
 
 /**
- * Handle diplay and creation of {@link com.example.projectmemory.ListItem}s
+ * Handle display and creation of {@link com.example.projectmemory.ListItem}s
  *
  * <p>
  *     Receive a specific list from {@link DisplayCommonLists} and display all the
@@ -27,7 +27,7 @@ import java.util.ArrayList;
  * @author Alex Lopez
  */
 
-//TODO: Display items, save items using SharedPreferences
+//TODO: Save new items using SharedPreferences and display them
 
 public class DisplayList extends AppCompatActivity {
     private ArrayAdapter adapter;
@@ -57,8 +57,14 @@ public class DisplayList extends AppCompatActivity {
         Gson gson = new Gson();
         this.list = gson.fromJson(listInfo,List.class);
 
+        //Set the title of the list
+        this.setTitle(this.list.name);
+
         //Set list view
-        ArrayList<String> items = list.names;
+        if(this.list.itemsNames == null) { //Avoid null pointer exception
+            this.list.itemsNames = new ArrayList<>();
+        }
+        ArrayList<String> items = list.itemsNames;
         this.adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, items);
         listView.setAdapter(adapter);
     }
