@@ -88,7 +88,6 @@ public class MainActivity extends AppCompatActivity {
         String json = gson.toJson(CommonLists);
         editor.putString(COMMON_JSON_DATA, json);
         editor.apply();
-        editor.clear().apply();
 
     }
     /**
@@ -100,8 +99,6 @@ public class MainActivity extends AppCompatActivity {
 
     public void loadLists(){
         SharedPreferences sharedPreferences = getSharedPreferences(APP_PREFS, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.clear().apply();
 
         //Load shared preferences
         String listContainers = sharedPreferences.getString(COMMON_JSON_DATA, null);

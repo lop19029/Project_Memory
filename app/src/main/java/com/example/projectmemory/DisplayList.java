@@ -78,3 +78,5 @@ public class DisplayList extends AppCompatActivity {
         Toast.makeText(this, String.format("%s added to the list", itemName), Toast.LENGTH_SHORT).show();
     };
 }
+
+//TODO: saveListItem() and LoadListItem() deleteItem()
