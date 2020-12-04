@@ -156,5 +156,17 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
 
     }
+
+    public void onDisplayExpirationLists(View view){
+        Intent intent = new Intent(this, DisplayExpirationLists.class);
+
+        //Prepare JSON ExpirationLists data
+        Gson gson = new Gson();
+        String json = gson.toJson(ExpirationLists);
+
+        //Create intend
+        intent.putExtra(EXP_JSON_DATA, json);
+        startActivity(intent);
+    }
 }
 

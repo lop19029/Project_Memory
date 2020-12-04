@@ -52,5 +52,15 @@
       android:onClick="onDisplayCommonLists"
       android:text="DISPLAY COMMON LISTS" />
 
+  <Button
+      android:id="@+id/displayExpirationLists"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignParentTop="true"
+      android:layout_centerHorizontal="true"
+      android:layout_marginTop="293dp"
+      android:onClick="onDisplayExpirationLists"
+      android:text="DISPLAY EXPIRATION LISTS" />
+
 
 </RelativeLayout>
