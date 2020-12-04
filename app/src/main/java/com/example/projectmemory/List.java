@@ -14,6 +14,7 @@ public class List {
         this.defaultType = Todo;
     }
 
+
     public List(String name, ListType type) {
         this.name = name;
         this.defaultType = type;

@@ -20,7 +20,7 @@ import java.util.ArrayList;
  *
  * <p>
  *     Controls list creation, and list classification.
- *     It loads all the {@link com.example.projectmemory.ListContainer}, and let's the user display them.
+ *     It loads all the {@link com.example.projectmemory.ListContainer}s, and lets the user display them.
  *     Save lists containers onStop using {@link MainActivity#saveLists()} and SharedPreferences.
  *     Load list containers onCreate using {@link MainActivity#loadLists()}.
  * </p>
@@ -28,7 +28,9 @@ import java.util.ArrayList;
  * */
 public class MainActivity extends AppCompatActivity {
     ListContainer CommonLists;
-    public static final String COMMON_JSON_DATA = "JSON_DATA";
+    ListContainer ExpirationLists;
+    public static final String EXP_JSON_DATA = "EXP_JSON_DATA";
+    public static final String COMMON_JSON_DATA = "COMMON_JSON_DATA";
     public static final String APP_PREFS = "APPLICATION_PREFERENCES";
     /**
      * Create the main page and load the lists
@@ -70,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
         CommonLists.createList(listName);
         Toast.makeText(this, "List added to your Common lists", Toast.LENGTH_SHORT).show();
     }
+
     /**
      * Save all the {@link com.example.projectmemory.ListContainer}s
      *
@@ -78,15 +81,22 @@ public class MainActivity extends AppCompatActivity {
      *     objects and then use shared preferences to save them all.
      * </p>*/
     public void saveLists(){
+        //TODO: Save all the ListContainers here
         //Use SharedPreferences to store all the lists
         SharedPreferences sharedPreferences = getSharedPreferences(APP_PREFS, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
-
-        //Prepare JSON data
+        //Initialize JSON
         Gson gson = new Gson();
-        String json = gson.toJson(CommonLists);
-        editor.putString(COMMON_JSON_DATA, json);
+
+        //Prepare CommonLists JSON
+        String json1 = gson.toJson(CommonLists);
+        editor.putString(COMMON_JSON_DATA, json1);
+        editor.apply();
+
+        //Prepare ExpirationLists JSON
+        String json2 = gson.toJson(ExpirationLists);
+        editor.putString(EXP_JSON_DATA, json2);
         editor.apply();
 
     }
@@ -96,16 +106,18 @@ public class MainActivity extends AppCompatActivity {
      *     Deserialize all the JSON objects from SharedPreferences
      *     and load them as {@link com.example.projectmemory.ListContainer}s
      * </p>*/
-
     public void loadLists(){
+        //TODO: Load all the ListContainers here.
         SharedPreferences sharedPreferences = getSharedPreferences(APP_PREFS, Context.MODE_PRIVATE);
 
         //Load shared preferences
-        String listContainers = sharedPreferences.getString(COMMON_JSON_DATA, null);
+        String commonListContainers = sharedPreferences.getString(COMMON_JSON_DATA, null);
+        String expirationListContainers = sharedPreferences.getString(EXP_JSON_DATA, null);
 
         //Deserialize
         Gson gson = new Gson();
-        ListContainer savedCommonLists = gson.fromJson(listContainers, ListContainer.class);
+        ListContainer savedCommonLists = gson.fromJson(commonListContainers, ListContainer.class);
+        ListContainer savedExpirationLists = gson.fromJson(expirationListContainers, ListContainer.class);
 
         //Check for null
         if (savedCommonLists == null){
@@ -113,6 +125,13 @@ public class MainActivity extends AppCompatActivity {
         }
         else{
             this.CommonLists = savedCommonLists;
+        }
+
+        if (savedExpirationLists == null){
+            ExpirationLists = new ListContainer();
+        }
+        else{
+            this.ExpirationLists = savedExpirationLists;
         }
     }
 
