@@ -3,7 +3,7 @@ package com.example.projectmemory;
 public class Item {
     String name;
     boolean checked= false;
-    boolean repeating= true; //TODO decide if repeating is default
+    boolean repeating= true;
     Alarm alarm;
 
     public void setName(String name) {
