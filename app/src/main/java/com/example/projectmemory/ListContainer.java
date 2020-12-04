@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import com.google.gson.Gson;
 
 public class ListContainer {
+    //TODO: Make this class more reusable
     ArrayList<List> lists;
     ArrayList<String> names;
     public ListContainer(){

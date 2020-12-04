@@ -28,7 +28,7 @@ import java.util.ArrayList;
  * */
 public class MainActivity extends AppCompatActivity {
     ListContainer CommonLists;
-    ListContainer ExpirationLists;
+    ExpirationLists ExpirationLists;
     public static final String EXP_JSON_DATA = "EXP_JSON_DATA";
     public static final String COMMON_JSON_DATA = "COMMON_JSON_DATA";
     public static final String APP_PREFS = "APPLICATION_PREFERENCES";
@@ -117,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
         //Deserialize
         Gson gson = new Gson();
         ListContainer savedCommonLists = gson.fromJson(commonListContainers, ListContainer.class);
-        ListContainer savedExpirationLists = gson.fromJson(expirationListContainers, ListContainer.class);
+        ExpirationLists savedExpirationLists = gson.fromJson(expirationListContainers, ExpirationLists.class);
 
         //Check for null
         if (savedCommonLists == null){
@@ -128,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         if (savedExpirationLists == null){
-            ExpirationLists = new ListContainer();
+            ExpirationLists = new ExpirationLists();
         }
         else{
             this.ExpirationLists = savedExpirationLists;
