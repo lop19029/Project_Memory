@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;
 
 /**
@@ -24,8 +25,8 @@ import com.google.gson.Gson;
  *  @author Alex Lopez
  * */
 public class MainActivity extends AppCompatActivity {
-    ListContainer CommonLists;
-    ExpirationLists ExpirationLists;
+    public ListContainer CommonLists;
+    public ExpirationLists ExpirationLists;
     public static final String EXP_JSON_DATA = "EXP_JSON_DATA";
     public static final String COMMON_JSON_DATA = "COMMON_JSON_DATA";
     public static final String APP_PREFS = "APPLICATION_PREFERENCES";
@@ -38,7 +39,15 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         loadLists();
 
+       FloatingActionButton fab = findViewById(R.id.mainFab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onCreateListActivity(view);
+            }
+        });
     }
+
     /**
      * Save the lists using SharedPreferences
      */
@@ -50,25 +59,21 @@ public class MainActivity extends AppCompatActivity {
         //Update and save all current lists in SharedPreferences
         saveLists();
     }
+
     /**
-     * When the user press the button, create a new common list
+     * Calls {@link CreateListActivity}
      *
      * <p>
-     *     Takes the user input from the EditText in {@link com.example.projectmemory.R.layout#activity_main}
-     *     and use it as a name to crate a new {@link com.example.projectmemory.List} and add it to
-     *     {@link com.example.projectmemory.MainActivity#CommonLists}
+     *     on click, the FAB in {@link com.example.projectmemory.R.layout#activity_main} calls this
+     *     method.
      * </p>
-     *
      * @param view
-     * @return {@link com.example.projectmemory.List}
-     * */
-    public void onCreateCommonList(View view){
-        //Get list name
-        EditText list = (EditText) findViewById(R.id.userInput);
-        String listName = list.getText().toString();
-        CommonLists.createList(listName);
-        Toast.makeText(this, "List added to your Common lists", Toast.LENGTH_SHORT).show();
+     */
+    public void onCreateListActivity(View view) {
+        Intent intent = new Intent(this, CreateListActivity.class);
+        startActivity(intent);
     }
+
 
     /**
      * Save all the {@link com.example.projectmemory.ListContainer}s
