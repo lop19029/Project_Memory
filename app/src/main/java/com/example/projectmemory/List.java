@@ -8,10 +8,15 @@ public class List {
     String name;
     private ListType defaultType;
     ArrayList<Item> items;
+    ArrayList<String> itemsNames;
 
     public List(String name) {
         this.name = name;
         this.defaultType = Todo;
+        this.items = new ArrayList<>();
+        if (this.itemsNames == null) { //Avoid NullPointerException
+            itemsNames = new ArrayList<>();
+        }
     }
 
 

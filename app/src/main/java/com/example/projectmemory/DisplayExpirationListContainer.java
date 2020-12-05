@@ -18,14 +18,14 @@ import java.util.ArrayList;
  *
  * <p>
  *     Deserialize the JSON object coming from {@link MainActivity#onDisplayExpirationLists} and load
- *     each list name into the {@link DisplayExpirationLists#listView} using the {@link DisplayExpirationLists#adapter}
+ *     each list name into the {@link DisplayExpirationListContainer#listView} using the {@link DisplayExpirationListContainer#adapter}
  *     Also handles user interaction with the list view using and event handler, and calling
- *     {@link DisplayExpirationLists#onDisplayExpirationList} when the user clicks on a list name.
+ *     {@link DisplayExpirationListContainer#onDisplayExpirationList} when the user clicks on a list name.
  * </p>
  *
  * @author Alex Lopez
  */
-public class DisplayExpirationLists extends AppCompatActivity {
+public class DisplayExpirationListContainer extends AppCompatActivity {
     ExpirationLists expirationLists;
     private ListView listView;
     private ArrayAdapter adapter;
@@ -71,7 +71,7 @@ public class DisplayExpirationLists extends AppCompatActivity {
      *
      * <p>
      *     Use the position of the clicked row of the ListView to find and display the correct list
-     *     from {@link DisplayExpirationLists#expirationLists}
+     *     from {@link DisplayExpirationListContainer#expirationLists}
      * </p>
      * @param position
      */

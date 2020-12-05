@@ -4,12 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".DisplayExpirationListContainer">
+    tools:context=".DisplayExpirationList">
 
     <ListView
-        android:id="@+id/expirationListView"
+        android:id="@+id/expirationItemsListView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:layout_editor_absoluteX="194dp"
-        tools:layout_editor_absoluteY="145dp" />
+        tools:layout_editor_absoluteX="169dp"
+        tools:layout_editor_absoluteY="192dp" />
 </RelativeLayout>

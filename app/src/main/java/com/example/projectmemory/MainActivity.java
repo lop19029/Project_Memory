@@ -6,15 +6,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
 
-import java.util.ArrayList;
 /**
  * Set up the main page and lists of the app
  *
@@ -158,7 +155,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onDisplayExpirationLists(View view){
-        Intent intent = new Intent(this, DisplayExpirationLists.class);
+        Intent intent = new Intent(this, DisplayExpirationListContainer.class);
 
         //Prepare JSON ExpirationLists data
         Gson gson = new Gson();
