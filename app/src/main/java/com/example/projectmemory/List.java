@@ -19,6 +19,16 @@ public class List {
         }
     }
 
+    //Adds a new item to the list
+    public void addItem(String itemName){
+        Item item = new Item();
+        item.setName(itemName);
+        this.items.add(item);
+        if(this.itemsNames == null){ //Avoid NullPointerException
+            this.itemsNames = new ArrayList<>();
+        }
+        this.itemsNames.add(itemName);
+    }
 
     public List(String name, ListType type) {
         this.name = name;

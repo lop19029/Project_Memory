@@ -3,13 +3,14 @@ package com.example.projectmemory;
 import java.util.ArrayList;
 
 public class ExpirationLists extends ListContainer {
-    ArrayList<List> lists;
-    ArrayList<String> names;
+    ArrayList<List> expList;
+    ArrayList<String> expNames;
 
     public ExpirationLists(){
-        this.lists = new ArrayList<>();
-        this.names = new ArrayList<>();
+        this.expList = new ArrayList<>();
+        this.expNames = new ArrayList<>();
         populateLists();
+
     }
     private void populateLists(){
         //Create lists
@@ -22,17 +23,17 @@ public class ExpirationLists extends ListContainer {
         List thisYear = new List("This year");
         
         //Add lists to lists array
-        lists.add(expired);
-        lists.add(nextWeek);
-        lists.add(next2Weeks);
-        lists.add(nextMonth);
-        lists.add(next3Months);
-        lists.add(next6Months);
-        lists.add(thisYear);
+        expList.add(expired);
+        expList.add(nextWeek);
+        expList.add(next2Weeks);
+        expList.add(nextMonth);
+        expList.add(next3Months);
+        expList.add(next6Months);
+        expList.add(thisYear);
         
         //Add lists names to the names array
-        for (List list:this.lists) {
-            names.add(list.name);
+        for (List list:this.expList) {
+            expNames.add(list.name);
         }
     }
 }

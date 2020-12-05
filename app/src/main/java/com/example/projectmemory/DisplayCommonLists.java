@@ -54,6 +54,9 @@ public class DisplayCommonLists extends AppCompatActivity {
         this.commonLists = gson.fromJson(listContainer, ListContainer.class);
 
         //Set List View
+        if(commonLists.names == null){
+            commonLists.names = new ArrayList<>();
+        }
         ArrayList<String> lists = commonLists.names;
         this.adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, lists);
         listView.setAdapter(adapter);
@@ -66,6 +69,7 @@ public class DisplayCommonLists extends AppCompatActivity {
             }
         });
     }
+
 
     /**
      * Display the items inside a list

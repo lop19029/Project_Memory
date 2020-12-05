@@ -35,7 +35,7 @@ public class DisplayExpirationListContainer extends AppCompatActivity {
      * Deserialize the object coming from the intent.
      *
      * <p>
-     *     Populate the list view and handles click on any item in it.
+     * Populate the list view and handles click on any item in it.
      * </p>
      */
     @Override
@@ -54,7 +54,7 @@ public class DisplayExpirationListContainer extends AppCompatActivity {
         this.expirationLists = gson.fromJson(listContainer, ExpirationLists.class);
 
         //Set List View
-        ArrayList<String> lists = expirationLists.names;
+        ArrayList<String> lists = expirationLists.expNames;
         this.adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, lists);
         listView.setAdapter(adapter);
 
@@ -77,10 +77,10 @@ public class DisplayExpirationListContainer extends AppCompatActivity {
      */
     public void onDisplayExpirationList(int position){
         //Initialize intent
-        Intent intent = new Intent(this,DisplayList.class);
+        Intent intent = new Intent(this,DisplayExpirationList.class);
 
         //Take called list
-        List list = this.expirationLists.lists.get(position);
+        List list = this.expirationLists.expList.get(position);
 
         //Serialize the list
         Gson gson = new Gson();
@@ -91,3 +91,4 @@ public class DisplayExpirationListContainer extends AppCompatActivity {
         startActivity(intent);
     }
     }
+
