@@ -26,7 +26,7 @@ import java.util.ArrayList;
  * @author Alex Lopez
  */
 public class DisplayCommonLists extends AppCompatActivity {
-    public static final String LIST = "LIST_INFO";
+    public static final String LIST = "LIST_INFO"; //Used to create the intent
     private ArrayAdapter adapter;
     private ListView listView;
     ListContainer commonLists;
