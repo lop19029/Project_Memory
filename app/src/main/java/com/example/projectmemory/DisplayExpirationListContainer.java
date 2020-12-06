@@ -61,6 +61,9 @@ public class DisplayExpirationListContainer extends AppCompatActivity {
         this.adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, lists);
         listView.setAdapter(adapter);
 
+        //Put every FoodItem in its correct list
+        sortFoodItems();
+
         //Set event listener on list click
         this.listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -68,15 +71,49 @@ public class DisplayExpirationListContainer extends AppCompatActivity {
                 onDisplayExpirationList(position);
             }
         });
+
     }
 
     /** Sorts the Food Items that cointain and expiration date*/
     private void sortFoodItems(){
-        //Current data
+        //Create dates
+        DateManipulator dm = new DateManipulator();
         Date today = new Date();
-        Date nextWeek =
+        Date nextWeek = dm.addDays(today, 5);
+        Date next2Weeks = dm.addDays(today, 15);
+        Date nextMonth = dm.addDays(today, 30);
+        Date next3Months = dm.addDays(today, 90);
+        Date next6Months = dm.addDays(today, 180);
+        Date thisYear = dm.addYears(today, 1);
         for (FoodItem fi:expItems) {
-            if(fi.expiration == )
+            if(fi.expiration.before(today)) {
+                List list = expirationLists.expList.get(0);
+                list.addItem(fi.name);
+            }
+            else if(fi.expiration.before(nextWeek)){
+                List list = expirationLists.expList.get(1);
+                list.addItem(fi.name);
+            }
+            else if(fi.expiration.before(next2Weeks)){
+                List list = expirationLists.expList.get(2);
+                list.addItem(fi.name);
+            }
+            else if(fi.expiration.before(nextMonth)){
+                List list = expirationLists.expList.get(3);
+                list.addItem(fi.name);
+            }
+            else if(fi.expiration.before(next3Months)){
+                List list = expirationLists.expList.get(4);
+                list.addItem(fi.name);
+            }
+            else if(fi.expiration.before(next6Months)){
+                List list = expirationLists.expList.get(5);
+                list.addItem(fi.name);
+            }
+            else if(fi.expiration.before(thisYear)){
+                List list = expirationLists.expList.get(6);
+                list.addItem(fi.name);
+            }
         }
     }
 
