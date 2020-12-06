@@ -10,7 +10,6 @@ public class ExpirationLists extends ListContainer {
         this.expList = new ArrayList<>();
         this.expNames = new ArrayList<>();
         populateLists();
-
     }
     private void populateLists(){
         //Create lists
@@ -36,4 +35,5 @@ public class ExpirationLists extends ListContainer {
             expNames.add(list.name);
         }
     }
+
 }

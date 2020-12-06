@@ -22,6 +22,6 @@ public class ExpirationDateTest {
         Date currentDate = Calendar.getInstance().getTime();
 
         //Checks if the expiration date entered in FoodItem is after today
-        Boolean correctDate = currentDate.before(underTest.expirationDate);
+        Boolean correctDate = currentDate.before(underTest.expiration);
         assertTrue(correctDate);}
 }

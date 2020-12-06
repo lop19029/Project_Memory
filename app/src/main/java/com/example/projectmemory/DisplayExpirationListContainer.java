@@ -12,6 +12,8 @@ import android.widget.ListView;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  * Displays the {@link com.example.projectmemory.List}s from {@link MainActivity#ExpirationLists}
@@ -26,6 +28,7 @@ import java.util.ArrayList;
  * @author Alex Lopez
  */
 public class DisplayExpirationListContainer extends AppCompatActivity {
+    ArrayList<FoodItem> expItems;
     ExpirationLists expirationLists;
     private ListView listView;
     private ArrayAdapter adapter;
@@ -66,6 +69,17 @@ public class DisplayExpirationListContainer extends AppCompatActivity {
             }
         });
     }
+
+    /** Sorts the Food Items that cointain and expiration date*/
+    private void sortFoodItems(){
+        //Current data
+        Date today = new Date();
+        Date nextWeek =
+        for (FoodItem fi:expItems) {
+            if(fi.expiration == )
+        }
+    }
+
     /**
      * Display the items inside a list
      *
