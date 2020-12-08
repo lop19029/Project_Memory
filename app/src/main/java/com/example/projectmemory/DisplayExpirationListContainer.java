@@ -46,7 +46,7 @@ public class DisplayExpirationListContainer extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_expiration_lists);
         this.listView = (ListView) findViewById(R.id.expirationListView);
-        this.setTitle("Expiration List");
+        this.setTitle("Expired Items");
 
         // Get the Intent that started this activity and extract the string
         Intent intent = getIntent();

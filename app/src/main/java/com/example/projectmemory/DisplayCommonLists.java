@@ -43,7 +43,7 @@ public class DisplayCommonLists extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_common_lists);
         this.listView = (ListView) findViewById(R.id.listView);
-        this.setTitle("Common Lists");
+        this.setTitle("Other Lists");
 
         // Get the Intent that started this activity and extract the string
         Intent intent = getIntent();
