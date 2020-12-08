@@ -15,30 +15,9 @@
       android:layout_centerHorizontal="true"
       android:layout_marginTop="24dp"
       android:fontFamily="sans-serif"
-      android:text="Welcome to Project Memory"
+      android:text="My Lists"
       android:textSize="18sp"
       android:textStyle="bold" />
-
-  <Button
-      android:id="@+id/displayCommonLists"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_below="@id/intro"
-      android:layout_centerHorizontal="true"
-      android:layout_marginTop="55dp"
-      android:onClick="onDisplayCommonLists"
-      android:text="DISPLAY COMMON LISTS" />
-
-  <Button
-      android:id="@+id/displayExpirationLists"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_below="@id/displayCommonLists"
-      android:layout_alignParentTop="true"
-      android:layout_centerHorizontal="true"
-      android:layout_marginTop="206dp"
-      android:onClick="onDisplayExpirationLists"
-      android:text="DISPLAY EXPIRATION LISTS" />
 
   <com.google.android.material.floatingactionbutton.FloatingActionButton
       android:id="@+id/mainFab"

@@ -62,7 +62,7 @@ public class DisplayExpirationListContainer extends AppCompatActivity {
         listView.setAdapter(adapter);
 
         //Put every FoodItem in its correct list
-        sortFoodItems();
+        //sortFoodItems();
 
         //Set event listener on list click
         this.listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
