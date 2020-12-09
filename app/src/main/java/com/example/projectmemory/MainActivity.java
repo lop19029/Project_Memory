@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.setTitle("Recall it");
+        this.setTitle("Recall.it");
         setContentView(R.layout.activity_main);
         loadLists();
 
