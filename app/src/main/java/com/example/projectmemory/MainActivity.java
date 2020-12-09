@@ -49,6 +49,17 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onResume() {
+        //call the superclass method first
+        super.onResume();
+
+        //Rewrites the ListContainers using CreateListSingleton
+        if(!CreateListSingleton.getInstance().getCommonLists().lists.isEmpty()) {
+            this.CommonLists = CreateListSingleton.getInstance().getCommonLists();
+        }
+    }
+
     /**
      * Save the lists using SharedPreferences
      */
