@@ -25,7 +25,7 @@ import com.google.gson.Gson;
  *  @author Alex Lopez
  * */
 public class MainActivity extends AppCompatActivity {
-    public ListContainer CommonLists;
+    public static ListContainer CommonLists;
     public ExpirationLists ExpirationLists;
     public static final String EXP_JSON_DATA = "EXP_JSON_DATA";
     public static final String COMMON_JSON_DATA = "COMMON_JSON_DATA";
@@ -47,17 +47,6 @@ public class MainActivity extends AppCompatActivity {
                 onCreateListActivity(view);
             }
         });
-    }
-
-    @Override
-    protected void onResume() {
-        //call the superclass method first
-        super.onResume();
-
-        //Rewrites the ListContainers using CreateListSingleton
-        if(!CreateListSingleton.getInstance().getCommonLists().lists.isEmpty()) {
-            this.CommonLists = CreateListSingleton.getInstance().getCommonLists();
-        }
     }
 
     /**

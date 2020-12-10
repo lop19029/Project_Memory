@@ -31,8 +31,10 @@ public class CreateListActivity extends AppCompatActivity {
         //Get list name
         EditText list = (EditText) findViewById(R.id.userInput);
         String listName = list.getText().toString();
+
         //Use singleton to modify CommonLists in MainActivity
-        CreateListSingleton.getInstance().getCommonLists().createList(listName);
+        MainActivity.CommonLists.createList(listName);
+
         //MainActivity.CommonLists.createList(listName);
         Toast.makeText(this, listName + " added to your Other Lists", Toast.LENGTH_SHORT).show();
     }

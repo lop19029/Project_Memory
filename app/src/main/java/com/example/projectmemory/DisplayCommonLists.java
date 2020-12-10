@@ -21,6 +21,8 @@ import com.google.gson.Gson;
 
 import java.util.ArrayList;
 
+import static com.example.projectmemory.CreateListSingleton.getInstance;
+
 /**
  * Displays the {@link com.example.projectmemory.List}s from {@link MainActivity#CommonLists}
  *
@@ -67,7 +69,7 @@ public class DisplayCommonLists extends AppCompatActivity {
             commonLists.names = new ArrayList<>();
         }
         ArrayList<String> lists = commonLists.names;
-        this.adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, lists);
+        adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, lists);
         listView.setAdapter(adapter);
 
         SwipeMenuCreator creator = new SwipeMenuCreator() {
@@ -97,7 +99,8 @@ public class DisplayCommonLists extends AppCompatActivity {
             public boolean onMenuItemClick(int position, SwipeMenu menu, int index) {
                 switch (index) {
                     case 0:
-                        Log.d(TAG, "Delete clicked on position " + position);
+                        onDeleteList(position);
+
                         break;
                 }
                 // false : close the menu; true : not close the menu
@@ -140,4 +143,13 @@ public class DisplayCommonLists extends AppCompatActivity {
         startActivity(intent);
     }
 
-}
+    public void onDeleteList(int position){
+       //delete list
+        String listName = commonLists.names.get(position);
+        MainActivity.CommonLists.deleteList(position);
+        commonLists.deleteList(position);
+        finish();
+        Toast.makeText(this, listName + " was permanently deleted", Toast.LENGTH_SHORT).show();
+    }
+    }
+

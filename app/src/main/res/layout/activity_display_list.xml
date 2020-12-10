@@ -10,27 +10,35 @@
         android:id="@+id/addNewItem"
         android:layout_width="279dp"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="14dp"
+        android:layout_marginTop="14dp"
+        android:layout_marginBottom="14dp"
         android:ems="10"
+        android:fontFamily="@font/raleway"
         android:hint="Add something"
         android:inputType="textPersonName" />
     <ListView
         android:id="@+id/listListView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:layout_editor_absoluteX="127dp"
-        tools:layout_editor_absoluteY="147dp"
-        android:layout_below="@id/addNewItem">
+        android:layout_above="@id/addNewItem">
     </ListView>
 
     <Button
         android:id="@+id/addItemButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="14dp"
+        android:layout_marginLeft="14dp"
+        android:layout_marginTop="14dp"
         android:layout_marginEnd="14dp"
         android:layout_marginRight="14dp"
+        android:layout_marginBottom="14dp"
+        android:fontFamily="@font/raleway_semibold"
         android:onClick="onAddNewItem"
         android:text="ADD" />
 </RelativeLayout>

@@ -3,7 +3,7 @@ import java.util.ArrayList;
 import com.google.gson.Gson;
 
 public class ListContainer {
-    //TODO: Make this class more reusable
+
     ArrayList<List> lists;
     ArrayList<String> names;
     public ListContainer(){
@@ -17,5 +17,9 @@ public class ListContainer {
         lists.add(list);
         //Adds lists name to the list
         names.add(name);
+    }
+    public void deleteList(int position){
+        this.lists.remove(position);
+        this.names.remove(position);
     }
 }
