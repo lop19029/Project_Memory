@@ -71,6 +71,7 @@ public class DisplayCommonLists extends AppCompatActivity {
         adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, lists);
         listView.setAdapter(adapter);
 
+        //Handle delete Lists by Swiping
         SwipeMenuCreator creator = new SwipeMenuCreator() {
 
             @Override
@@ -116,7 +117,6 @@ public class DisplayCommonLists extends AppCompatActivity {
         });
     }
 
-
     /**
      * Display the items inside a list
      *
@@ -142,6 +142,10 @@ public class DisplayCommonLists extends AppCompatActivity {
         startActivity(intent);
     }
 
+    /**
+     * Permanently deletes a {@link List}
+     * @param position
+     */
     public void onDeleteList(int position){
        //delete list
         String listName = commonLists.names.get(position);

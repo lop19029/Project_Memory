@@ -78,7 +78,7 @@ public class DisplayList extends AppCompatActivity {
         this.adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, items);
         listView.setAdapter(adapter);
 
-        //Handle swiping
+        //Handle delete item by swiping
         SwipeMenuCreator creator = new SwipeMenuCreator() {
 
             @Override
@@ -116,12 +116,18 @@ public class DisplayList extends AppCompatActivity {
         });
     }
 
+    /**
+     * Save items
+     */
     @Override
     protected void onStop() {
         super.onStop();
         saveItems();
     }
 
+    /**
+     * Use SharedPreferences to save all the items inside the List
+     */
     public void saveItems(){
         //Use SharedPreferences to store all the lists
         SharedPreferences sharedPreferences = getSharedPreferences(APP_PREFS, Context.MODE_PRIVATE);
@@ -136,6 +142,9 @@ public class DisplayList extends AppCompatActivity {
         editor.apply();
     }
 
+    /**
+     * Use SharedPreferences to load all the items inside a List
+     */
     public void loadItems(){
         SharedPreferences sharedPreferences = getSharedPreferences(APP_PREFS, Context.MODE_PRIVATE);
 
@@ -166,7 +175,12 @@ public class DisplayList extends AppCompatActivity {
         Toast.makeText(this, String.format("%s added to the list", itemName), Toast.LENGTH_SHORT).show();
     }
 
+    /**
+     * Deletes an Item from this List
+     * @param position
+     */
     public void onDeleteItem(int position){
+        //TODO: Avoid the deleted items from loading with SharedPreferences
         String itemName = this.list.itemsNames.get(position);
         this.list.deleteItem(position);
         finish();
