@@ -18,12 +18,12 @@
         android:fontFamily="@font/raleway"
         android:hint="Add something"
         android:inputType="textPersonName" />
-    <ListView
+    <com.baoyz.swipemenulistview.SwipeMenuListView
         android:id="@+id/listListView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/addNewItem">
-    </ListView>
+    </com.baoyz.swipemenulistview.SwipeMenuListView>
 
     <Button
         android:id="@+id/addItemButton"

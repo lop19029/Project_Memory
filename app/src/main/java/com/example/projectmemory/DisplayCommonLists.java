@@ -36,7 +36,6 @@ import static com.example.projectmemory.CreateListSingleton.getInstance;
  * @author Alex Lopez
  */
 public class DisplayCommonLists extends AppCompatActivity {
-    private static final String TAG = "DisplayCommonLists";
     public static final String LIST = "LIST_INFO"; //Used to create the intent
     private ArrayAdapter adapter;
     private SwipeMenuListView listView;

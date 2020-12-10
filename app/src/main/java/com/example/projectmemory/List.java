@@ -30,6 +30,11 @@ public class List {
         this.itemsNames.add(itemName);
     }
 
+    public void deleteItem(int position){
+        this.items.remove(position);
+        this.itemsNames.remove(position);
+    }
+
     public List(String name, ListType type) {
         this.name = name;
         this.defaultType = type;
