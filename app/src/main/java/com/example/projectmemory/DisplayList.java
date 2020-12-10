@@ -181,10 +181,18 @@ public class DisplayList extends AppCompatActivity {
      */
     public void onDeleteItem(int position){
         //TODO: Avoid the deleted items from loading with SharedPreferences
+
+        /*This needs to be improved
+
+        //Delete the item
         String itemName = this.list.itemsNames.get(position);
         this.list.deleteItem(position);
+
+        //Reload the page
         finish();
         startActivity(getIntent());
-        Toast.makeText(this, itemName + " deleted", Toast.LENGTH_SHORT).show();
+
+        //Notify the user
+        Toast.makeText(this, itemName + " deleted", Toast.LENGTH_SHORT).show();*/
     }
 }

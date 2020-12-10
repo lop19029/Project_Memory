@@ -151,7 +151,11 @@ public class DisplayCommonLists extends AppCompatActivity {
         String listName = commonLists.names.get(position);
         MainActivity.CommonLists.deleteList(position);
         commonLists.deleteList(position);
+
+        //Close the activity to reload
         finish();
+
+        //Notify the user
         Toast.makeText(this, listName + " was permanently deleted", Toast.LENGTH_SHORT).show();
     }
     }
