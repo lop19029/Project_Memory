@@ -11,7 +11,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import com.baoyz.swipemenulistview.SwipeMenu;
@@ -23,11 +22,11 @@ import com.google.gson.Gson;
 import java.util.ArrayList;
 
 /**
- * Handle display and creation of {@link com.example.projectmemory.ListItem}s
+ * Handle display and creation of {@link com.example.projectmemory.Item}s
  *
  * <p>
- *     Receive a specific list from {@link DisplayCommonLists} and display all the
- *     {@link com.example.projectmemory.ListItem}s from inside it.
+ *     Receive a specific list from {@link DisplayOtherListContainerActivity} and display all the
+ *     {@link com.example.projectmemory.Item}s from inside it.
  *     Also let the user enter new items to the list or delete them. All the items are saved using
  *     SharedPreferences.
  * </p>
@@ -37,7 +36,7 @@ import java.util.ArrayList;
 
 //TODO: Save new items using SharedPreferences and display them
 
-public class DisplayList extends AppCompatActivity {
+public class DisplayOtherListActivity extends AppCompatActivity {
     private ArrayAdapter adapter;
     private SwipeMenuListView listView;
     List list;
@@ -47,8 +46,8 @@ public class DisplayList extends AppCompatActivity {
      * Populate the list view
      *
      * <p>
-     *     Deserialize the object coming from {@link DisplayCommonLists#onDisplayList} and display
-     *     each {@link ListItem} of it.
+     *     Deserialize the object coming from {@link DisplayOtherListContainerActivity#onDisplayList} and display
+     *     each {@link Item} of it.
      * </p>
      * @param savedInstanceState
      */
@@ -61,7 +60,7 @@ public class DisplayList extends AppCompatActivity {
 
         // Get the Intent that started this activity and extract the string
         Intent intent = getIntent();
-        String listInfo = intent.getStringExtra(DisplayCommonLists.LIST);
+        String listInfo = intent.getStringExtra(DisplayOtherListContainerActivity.LIST);
 
         //Prepare JSON CommonLists data
         Gson gson = new Gson();
@@ -166,7 +165,7 @@ public class DisplayList extends AppCompatActivity {
     }
 
     /**
-     * Add new {@link ListItem}s to this list
+     * Add new {@link Item}s to this list
      */
     public void onAddNewItem(View view){
         EditText item = (EditText) findViewById(R.id.addNewItem); //Get item name

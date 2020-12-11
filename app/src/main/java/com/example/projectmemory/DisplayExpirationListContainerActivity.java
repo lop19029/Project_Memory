@@ -12,24 +12,23 @@ import android.widget.ListView;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 
 /**
- * Displays the {@link com.example.projectmemory.List}s from {@link MainActivity#ExpirationLists}
+ * Displays the {@link com.example.projectmemory.List}s from {@link MainActivity#ExpirationListContainer}
  *
  * <p>
  *     Deserialize the JSON object coming from {@link MainActivity#onDisplayExpirationLists} and load
- *     each list name into the {@link DisplayExpirationListContainer#listView} using the {@link DisplayExpirationListContainer#adapter}
+ *     each list name into the {@link DisplayExpirationListContainerActivity#listView} using the {@link DisplayExpirationListContainerActivity#adapter}
  *     Also handles user interaction with the list view using and event handler, and calling
- *     {@link DisplayExpirationListContainer#onDisplayExpirationList} when the user clicks on a list name.
+ *     {@link DisplayExpirationListContainerActivity#onDisplayExpirationList} when the user clicks on a list name.
  * </p>
  *
  * @author Alex Lopez
  */
-public class DisplayExpirationListContainer extends AppCompatActivity {
+public class DisplayExpirationListContainerActivity extends AppCompatActivity {
     ArrayList<FoodItem> expItems;
-    ExpirationLists expirationLists;
+    ExpirationListContainer expirationListContainer;
     private ListView listView;
     private ArrayAdapter adapter;
     public static final String EXP_LIST_DISPLAY = "DISPLAY_EXP"; //Used to create the intent
@@ -54,10 +53,10 @@ public class DisplayExpirationListContainer extends AppCompatActivity {
 
         //Prepare JSON CommonLists data
         Gson gson = new Gson();
-        this.expirationLists = gson.fromJson(listContainer, ExpirationLists.class);
+        this.expirationListContainer = gson.fromJson(listContainer, ExpirationListContainer.class);
 
         //Set List View
-        ArrayList<String> lists = expirationLists.expNames;
+        ArrayList<String> lists = expirationListContainer.expNames;
         this.adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, lists);
         listView.setAdapter(adapter);
 
@@ -87,31 +86,31 @@ public class DisplayExpirationListContainer extends AppCompatActivity {
         Date thisYear = dm.addYears(today, 1);
         for (FoodItem fi:expItems) {
             if(fi.expiration.before(today)) {
-                List list = expirationLists.expList.get(0);
+                List list = expirationListContainer.expList.get(0);
                 list.addItem(fi.name);
             }
             else if(fi.expiration.before(nextWeek)){
-                List list = expirationLists.expList.get(1);
+                List list = expirationListContainer.expList.get(1);
                 list.addItem(fi.name);
             }
             else if(fi.expiration.before(next2Weeks)){
-                List list = expirationLists.expList.get(2);
+                List list = expirationListContainer.expList.get(2);
                 list.addItem(fi.name);
             }
             else if(fi.expiration.before(nextMonth)){
-                List list = expirationLists.expList.get(3);
+                List list = expirationListContainer.expList.get(3);
                 list.addItem(fi.name);
             }
             else if(fi.expiration.before(next3Months)){
-                List list = expirationLists.expList.get(4);
+                List list = expirationListContainer.expList.get(4);
                 list.addItem(fi.name);
             }
             else if(fi.expiration.before(next6Months)){
-                List list = expirationLists.expList.get(5);
+                List list = expirationListContainer.expList.get(5);
                 list.addItem(fi.name);
             }
             else if(fi.expiration.before(thisYear)){
-                List list = expirationLists.expList.get(6);
+                List list = expirationListContainer.expList.get(6);
                 list.addItem(fi.name);
             }
         }
@@ -122,16 +121,16 @@ public class DisplayExpirationListContainer extends AppCompatActivity {
      *
      * <p>
      *     Use the position of the clicked row of the ListView to find and display the correct list
-     *     from {@link DisplayExpirationListContainer#expirationLists}
+     *     from {@link DisplayExpirationListContainerActivity#expirationListContainer}
      * </p>
      * @param position
      */
     public void onDisplayExpirationList(int position){
         //Initialize intent
-        Intent intent = new Intent(this,DisplayExpirationList.class);
+        Intent intent = new Intent(this, DisplayExpirationListActivity.class);
 
         //Take called list
-        List list = this.expirationLists.expList.get(position);
+        List list = this.expirationListContainer.expList.get(position);
 
         //Serialize the list
         Gson gson = new Gson();

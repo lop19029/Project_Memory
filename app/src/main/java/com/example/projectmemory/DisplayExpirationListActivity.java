@@ -15,14 +15,14 @@ import java.util.ArrayList;
  * Handle display of {@link com.example.projectmemory.FoodItem}s with an expiration date
  *
  * <p>
- *     Receive a specific list from {@link DisplayExpirationListContainer} and display all the
+ *     Receive a specific list from {@link DisplayExpirationListContainerActivity} and display all the
  *     {@link com.example.projectmemory.FoodItem}s from inside it.
  *     All the items are saved using SharedPreferences.
  * </p>
  *
  * @author Alex Lopez
  */
-public class DisplayExpirationList extends AppCompatActivity {
+public class DisplayExpirationListActivity extends AppCompatActivity {
     private ArrayAdapter adapter;
     private ListView listView;
     List list;
@@ -31,7 +31,7 @@ public class DisplayExpirationList extends AppCompatActivity {
      * Populate the list view
      *
      * <p>
-     *     Deserialize the object coming from {@link DisplayExpirationListContainer#onDisplayExpirationList} and display
+     *     Deserialize the object coming from {@link DisplayExpirationListContainerActivity#onDisplayExpirationList} and display
      *     each {@link FoodItem} of it.
      * </p>
      * @param savedInstanceState
@@ -44,7 +44,7 @@ public class DisplayExpirationList extends AppCompatActivity {
 
         // Get the Intent that started this activity and extract the string
         Intent intent = getIntent();
-        String listInfo = intent.getStringExtra(DisplayExpirationListContainer.EXP_LIST_DISPLAY);
+        String listInfo = intent.getStringExtra(DisplayExpirationListContainerActivity.EXP_LIST_DISPLAY);
 
         //Prepare JSON CommonLists data
         Gson gson = new Gson();

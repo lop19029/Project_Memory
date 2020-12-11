@@ -2,11 +2,11 @@ package com.example.projectmemory;
 
 import java.util.ArrayList;
 
-public class ExpirationLists extends ListContainer {
+public class ExpirationListContainer extends ListContainer {
     ArrayList<List> expList;
     ArrayList<String> expNames;
 
-    public ExpirationLists(){
+    public ExpirationListContainer(){
         this.expList = new ArrayList<>();
         this.expNames = new ArrayList<>();
         populateLists();

@@ -7,7 +7,7 @@ public final class CreateListSingleton {
     private static final CreateListSingleton SELF = new CreateListSingleton();
 
     private ListContainer commonLists = new ListContainer();
-    private ExpirationLists expirationLists = new ExpirationLists();
+    private ExpirationListContainer expirationListContainer = new ExpirationListContainer();
 
     private CreateListSingleton() {
         //Avoid that anyone create this Singleton
@@ -21,7 +21,7 @@ public final class CreateListSingleton {
         return commonLists;
     }
 
-    public ExpirationLists getExpirationLists(){
-        return expirationLists;
+    public ExpirationListContainer getExpirationListContainer(){
+        return expirationListContainer;
     }
 }

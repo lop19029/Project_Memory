@@ -21,7 +21,7 @@ public class CreateListActivity extends AppCompatActivity {
      * <p>
      *     Takes the user input from the EditText in {@link com.example.projectmemory.R.layout#activity_main}
      *     and use it as a name to crate a new {@link com.example.projectmemory.List} and add it to
-     *     {@link com.example.projectmemory.MainActivity#CommonLists}
+     *     {@link com.example.projectmemory.MainActivity#OtherLists}
      * </p>
      *
      * @param view
@@ -33,7 +33,7 @@ public class CreateListActivity extends AppCompatActivity {
         String listName = list.getText().toString();
 
         //Use singleton to modify CommonLists in MainActivity
-        MainActivity.CommonLists.createList(listName);
+        MainActivity.OtherLists.createList(listName);
 
         //MainActivity.CommonLists.createList(listName);
         Toast.makeText(this, listName + " added to your Other Lists", Toast.LENGTH_SHORT).show();

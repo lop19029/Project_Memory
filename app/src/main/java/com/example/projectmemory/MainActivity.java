@@ -7,8 +7,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.EditText;
-import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;
@@ -25,8 +23,8 @@ import com.google.gson.Gson;
  *  @author Alex Lopez
  * */
 public class MainActivity extends AppCompatActivity {
-    public static ListContainer CommonLists;
-    public ExpirationLists ExpirationLists;
+    public static ListContainer OtherLists;
+    public ExpirationListContainer ExpirationListContainer;
     public static final String EXP_JSON_DATA = "EXP_JSON_DATA";
     public static final String COMMON_JSON_DATA = "COMMON_JSON_DATA";
     public static final String APP_PREFS = "APPLICATION_PREFERENCES";
@@ -93,12 +91,12 @@ public class MainActivity extends AppCompatActivity {
         Gson gson = new Gson();
 
         //Prepare CommonLists JSON
-        String json1 = gson.toJson(CommonLists);
+        String json1 = gson.toJson(OtherLists);
         editor.putString(COMMON_JSON_DATA, json1);
         editor.apply();
 
         //Prepare ExpirationLists JSON
-        String json2 = gson.toJson(ExpirationLists);
+        String json2 = gson.toJson(ExpirationListContainer);
         editor.putString(EXP_JSON_DATA, json2);
         editor.apply();
 
@@ -120,39 +118,39 @@ public class MainActivity extends AppCompatActivity {
         //Deserialize
         Gson gson = new Gson();
         ListContainer savedCommonLists = gson.fromJson(commonListContainers, ListContainer.class);
-        ExpirationLists savedExpirationLists = gson.fromJson(expirationListContainers, ExpirationLists.class);
+        ExpirationListContainer savedExpirationListContainer = gson.fromJson(expirationListContainers, ExpirationListContainer.class);
 
         //Check for null
         if (savedCommonLists == null){
-            CommonLists = new ListContainer();
+            OtherLists = new ListContainer();
         }
         else{
-            this.CommonLists = savedCommonLists;
+            this.OtherLists = savedCommonLists;
         }
 
-        if (savedExpirationLists == null){
-            ExpirationLists = new ExpirationLists();
+        if (savedExpirationListContainer == null){
+            ExpirationListContainer = new ExpirationListContainer();
         }
         else{
-            this.ExpirationLists = savedExpirationLists;
+            this.ExpirationListContainer = savedExpirationListContainer;
         }
     }
 
     /**
-     * Displays the {@link com.example.projectmemory.List}s from {@link MainActivity#CommonLists}
+     * Displays the {@link com.example.projectmemory.List}s from {@link MainActivity#OtherLists}
      *
      * <p>
-     *     Serialize {@link MainActivity#CommonLists} to load it to the intend, so it can be accessed
-     *     from {@link DisplayCommonLists}.
+     *     Serialize {@link MainActivity#OtherLists} to load it to the intend, so it can be accessed
+     *     from {@link DisplayOtherListContainerActivity}.
      * </p>
      * @param view
      */
     public void onDisplayCommonLists(View view){
-        Intent intent = new Intent(this,DisplayCommonLists.class);
+        Intent intent = new Intent(this, DisplayOtherListContainerActivity.class);
 
         //Prepare JSON CommonLists data
         Gson gson = new Gson();
-        String json = gson.toJson(CommonLists);
+        String json = gson.toJson(OtherLists);
 
         //Create intend
         intent.putExtra(COMMON_JSON_DATA,json);
@@ -161,11 +159,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onDisplayExpirationLists(View view){
-        Intent intent = new Intent(this, DisplayExpirationListContainer.class);
+        Intent intent = new Intent(this, DisplayExpirationListContainerActivity.class);
 
         //Prepare JSON ExpirationLists data
         Gson gson = new Gson();
-        String json = gson.toJson(ExpirationLists);
+        String json = gson.toJson(ExpirationListContainer);
 
         //Create intend
         intent.putExtra(EXP_JSON_DATA, json);

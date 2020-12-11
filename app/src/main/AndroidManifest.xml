@@ -10,10 +10,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ProjectMemory">
         <activity android:name=".CreateListActivity"></activity>
-        <activity android:name=".DisplayExpirationList" />
-        <activity android:name=".DisplayExpirationListContainer" />
-        <activity android:name=".DisplayList" />
-        <activity android:name=".DisplayCommonLists" />
+        <activity android:name=".DisplayExpirationListActivity" />
+        <activity android:name=".DisplayExpirationListContainerActivity" />
+        <activity android:name=".DisplayOtherListActivity" />
+        <activity android:name=".DisplayOtherListContainerActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

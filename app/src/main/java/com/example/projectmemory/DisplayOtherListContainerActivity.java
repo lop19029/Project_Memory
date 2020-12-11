@@ -6,11 +6,9 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import com.baoyz.swipemenulistview.SwipeMenu;
@@ -21,21 +19,19 @@ import com.google.gson.Gson;
 
 import java.util.ArrayList;
 
-import static com.example.projectmemory.CreateListSingleton.getInstance;
-
 /**
- * Displays the {@link com.example.projectmemory.List}s from {@link MainActivity#CommonLists}
+ * Displays the {@link com.example.projectmemory.List}s from {@link MainActivity#OtherLists}
  *
  * <p>
  *     Deserialize the JSON object coming from {@link MainActivity#onDisplayCommonLists} and load
- *     each list name into the {@link DisplayCommonLists#listView} using the {@link DisplayCommonLists#adapter}
+ *     each list name into the {@link DisplayOtherListContainerActivity#listView} using the {@link DisplayOtherListContainerActivity#adapter}
  *     Also handles user interaction with the list view using and event handler, and calling
- *     {@link DisplayCommonLists#onDisplayList} when the user clicks on a list name.
+ *     {@link DisplayOtherListContainerActivity#onDisplayList} when the user clicks on a list name.
  * </p>
  *
  * @author Alex Lopez
  */
-public class DisplayCommonLists extends AppCompatActivity {
+public class DisplayOtherListContainerActivity extends AppCompatActivity {
     public static final String LIST = "LIST_INFO"; //Used to create the intent
     private ArrayAdapter adapter;
     private SwipeMenuListView listView;
@@ -122,13 +118,13 @@ public class DisplayCommonLists extends AppCompatActivity {
      *
      * <p>
      *     Use the position of the clicked row of the ListView to find and display the correct list
-     *     from {@link DisplayCommonLists#commonLists}
+     *     from {@link DisplayOtherListContainerActivity#commonLists}
      * </p>
      * @param position
      */
     public void onDisplayList(int position){
         //Initialize intent
-        Intent intent = new Intent(this,DisplayList.class);
+        Intent intent = new Intent(this, DisplayOtherListActivity.class);
 
         //Take called list
         List list = this.commonLists.lists.get(position);
@@ -149,7 +145,7 @@ public class DisplayCommonLists extends AppCompatActivity {
     public void onDeleteList(int position){
        //delete list
         String listName = commonLists.names.get(position);
-        MainActivity.CommonLists.deleteList(position);
+        MainActivity.OtherLists.deleteList(position);
         commonLists.deleteList(position);
 
         //Close the activity to reload
