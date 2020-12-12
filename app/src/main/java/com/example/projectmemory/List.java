@@ -53,5 +53,9 @@ public class List {
         }
         this.defaultType = newType;
     }
-    
+    public void editItemName(int position){
+        String name = itemsNames.get(position);
+        itemsNames.set(position, String.format("%s %s", name,"- Done"));
+        items.get(position).name = String.format("%s %s", name,"- Done");
+    }
 }

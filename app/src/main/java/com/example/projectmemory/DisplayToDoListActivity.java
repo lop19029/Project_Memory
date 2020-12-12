@@ -6,11 +6,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.baoyz.swipemenulistview.SwipeMenu;
@@ -77,6 +80,19 @@ public class DisplayToDoListActivity extends AppCompatActivity {
 
             @Override
             public void create(SwipeMenu menu) {
+                // create "done" item
+                SwipeMenuItem doneItem = new SwipeMenuItem(
+                        getApplicationContext());
+                // set item background
+                doneItem.setBackground(new ColorDrawable(Color.rgb(0xD9,
+                        0xD9, 0xD9)));
+                // set item width
+                doneItem.setWidth(170);
+                // set a icon
+                doneItem.setIcon(R.drawable.ic_baseline_done_24);
+                // add to menu
+                menu.addMenuItem(doneItem);
+
                 // create "delete" item
                 SwipeMenuItem deleteItem = new SwipeMenuItem(
                         getApplicationContext());
@@ -100,8 +116,10 @@ public class DisplayToDoListActivity extends AppCompatActivity {
             public boolean onMenuItemClick(int position, SwipeMenu menu, int index) {
                 switch (index) {
                     case 0:
+                        checkAsDone(position);
+                        break;
+                    case 1:
                         onDeleteToDoItem(position);
-
                         break;
                 }
                 // false : close the menu; true : not close the menu
@@ -185,4 +203,26 @@ public class DisplayToDoListActivity extends AppCompatActivity {
         //Notify the user
         Toast.makeText(this, itemName + " deleted", Toast.LENGTH_SHORT).show();
     }
+
+    /**
+     * Checks an item as done
+     * <p>On user's click, Strikethrough the text and change the color to a lighter one. </p>
+     */
+    private void checkAsDone(int position) {
+
+            //Avoid check the item as done multiple times
+            String name = this.list.itemsNames.get(position);
+            if(!name.contains("- Done")) {
+                //Check Item as Done
+                this.list.editItemName(position);
+
+                //Refresh SharedPreferences
+                saveToDoItems();
+
+                //Reload the page
+                finish();
+                startActivity(getIntent());
+            }
+
+        }
 }
