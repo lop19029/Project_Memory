@@ -25,7 +25,7 @@ import java.util.ArrayList;
  * Handle display and creation of {@link com.example.projectmemory.Item}s
  *
  * <p>
- *     Receive a specific list from {@link DisplayOtherListContainerActivity} and display all the
+ *     Receive a specific list from {@link DisplayToDoListContainerActivity} and display all the
  *     {@link com.example.projectmemory.Item}s from inside it.
  *     Also let the user enter new items to the list or delete them. All the items are saved using
  *     SharedPreferences.
@@ -33,7 +33,7 @@ import java.util.ArrayList;
  *
  * @author Alex Lopez
  */
-public class DisplayOtherListActivity extends AppCompatActivity {
+public class DisplayToDoListActivity extends AppCompatActivity {
     private ArrayAdapter adapter;
     private SwipeMenuListView listView;
     List list;
@@ -42,7 +42,7 @@ public class DisplayOtherListActivity extends AppCompatActivity {
      * Populate the list view
      *
      * <p>
-     *     Deserialize the object coming from {@link DisplayOtherListContainerActivity#onDisplayList} and display
+     *     Deserialize the object coming from {@link DisplayToDoListContainerActivity#onDisplayToDoList} and display
      *     each {@link Item} of it.
      * </p>
      * @param savedInstanceState
@@ -50,18 +50,17 @@ public class DisplayOtherListActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_display_list);
-        this.listView = (SwipeMenuListView) findViewById(R.id.listListView);
-
+        setContentView(R.layout.activity_display_to_do_list);
+        this.listView = (SwipeMenuListView) findViewById(R.id.ToDoListListView);
 
         // Get the Intent that started this activity and extract the string
         Intent intent = getIntent();
-        String listInfo = intent.getStringExtra(DisplayOtherListContainerActivity.OTHER_LIST);
+        String listInfo = intent.getStringExtra(DisplayToDoListContainerActivity.TO_DO_LIST);
 
         //Prepare JSON CommonLists data
         Gson gson = new Gson();
         this.list = gson.fromJson(listInfo,List.class);
-        loadItems();
+        loadToDoItems();
         //Set the title of the list
         this.setTitle(this.list.name);
 
@@ -101,7 +100,7 @@ public class DisplayOtherListActivity extends AppCompatActivity {
             public boolean onMenuItemClick(int position, SwipeMenu menu, int index) {
                 switch (index) {
                     case 0:
-                        onDeleteItem(position);
+                        onDeleteToDoItem(position);
 
                         break;
                 }
@@ -110,20 +109,19 @@ public class DisplayOtherListActivity extends AppCompatActivity {
             }
         });
     }
-
     /**
      * Save items
      */
     @Override
     protected void onStop() {
         super.onStop();
-        saveItems();
+        saveToDoItems();
     }
 
     /**
      * Use SharedPreferences to save all the items inside the List
      */
-    private void saveItems(){
+    private void saveToDoItems(){
         //Use SharedPreferences to store all the lists
         SharedPreferences sharedPreferences = getSharedPreferences(APP_PREFS, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -136,11 +134,10 @@ public class DisplayOtherListActivity extends AppCompatActivity {
         editor.putString(list.name, json1);
         editor.apply();
     }
-
     /**
      * Use SharedPreferences to load all the items inside a List
      */
-    private void loadItems(){
+    private void loadToDoItems(){
         SharedPreferences sharedPreferences = getSharedPreferences(APP_PREFS, Context.MODE_PRIVATE);
 
         //Load shared preferences
@@ -159,12 +156,11 @@ public class DisplayOtherListActivity extends AppCompatActivity {
             this.list = savedItems;
         }
     }
-
     /**
      * Add new {@link Item}s to this list
      */
-    public void onAddNewItem(View view){
-        EditText item = (EditText) findViewById(R.id.addNewItem); //Get item name
+    public void onAddNewToDoItem (View view) {
+        EditText item = (EditText) findViewById(R.id.addNewToDoItem); //Get item name
         String itemName = item.getText().toString();
         this.list.addItem(itemName);
         Toast.makeText(this, String.format("%s added to the list", itemName), Toast.LENGTH_SHORT).show();
@@ -174,13 +170,13 @@ public class DisplayOtherListActivity extends AppCompatActivity {
      * Deletes an Item from this List
      * @param position
      */
-    public void onDeleteItem(int position){
+    private void onDeleteToDoItem(int position) {
         //Delete the item
         String itemName = this.list.itemsNames.get(position);
         this.list.deleteItem(position);
 
         //Refresh SharedPreferences
-        saveItems();
+        saveToDoItems();
 
         //Reload the page
         finish();

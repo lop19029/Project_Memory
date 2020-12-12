@@ -125,6 +125,19 @@ public class DisplayToDoListContainerActivity extends AppCompatActivity {
      * @param position
      */
     public void onDisplayToDoList(int position){
+        //Initialize intent
+        Intent intent = new Intent(this, DisplayToDoListActivity.class);
+
+        //Take called list
+        List list = this.toDoLists.lists.get(position);
+
+        //Serialize the list
+        Gson gson = new Gson();
+        String json = gson.toJson(list);
+
+        //Add list to the intend
+        intent.putExtra(TO_DO_LIST,json);
+        startActivity(intent);
 
     }
     /**
