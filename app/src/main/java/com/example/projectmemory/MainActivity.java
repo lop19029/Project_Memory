@@ -103,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
         editor.apply();
 
         //Prepare ToDoLists JSON
-        String json3 = gson.toJson(ExpirationListContainer);
+        String json3 = gson.toJson(ToDoLists);
         editor.putString(TO_DO_JSON_DATA, json3);
         editor.apply();
 
