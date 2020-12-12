@@ -24,9 +24,11 @@ import com.google.gson.Gson;
  * */
 public class MainActivity extends AppCompatActivity {
     public static ListContainer OtherLists;
+    public static ListContainer ToDoLists;
     public ExpirationListContainer ExpirationListContainer;
     public static final String EXP_JSON_DATA = "EXP_JSON_DATA";
-    public static final String COMMON_JSON_DATA = "COMMON_JSON_DATA";
+    public static final String OTHER_JSON_DATA = "COMMON_JSON_DATA";
+    public static final String TO_DO_JSON_DATA = "TO_DO_JSON_DATA";
     public static final String APP_PREFS = "APPLICATION_PREFERENCES";
     /**
      * Create the main page and load the lists
@@ -92,12 +94,17 @@ public class MainActivity extends AppCompatActivity {
 
         //Prepare CommonLists JSON
         String json1 = gson.toJson(OtherLists);
-        editor.putString(COMMON_JSON_DATA, json1);
+        editor.putString(OTHER_JSON_DATA, json1);
         editor.apply();
 
         //Prepare ExpirationLists JSON
         String json2 = gson.toJson(ExpirationListContainer);
         editor.putString(EXP_JSON_DATA, json2);
+        editor.apply();
+
+        //Prepare ToDoLists JSON
+        String json3 = gson.toJson(ExpirationListContainer);
+        editor.putString(TO_DO_JSON_DATA, json3);
         editor.apply();
 
     }
@@ -112,13 +119,15 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences(APP_PREFS, Context.MODE_PRIVATE);
 
         //Load shared preferences
-        String commonListContainers = sharedPreferences.getString(COMMON_JSON_DATA, null);
+        String commonListContainers = sharedPreferences.getString(OTHER_JSON_DATA, null);
         String expirationListContainers = sharedPreferences.getString(EXP_JSON_DATA, null);
+        String toDoListContainers = sharedPreferences.getString(TO_DO_JSON_DATA,null);
 
         //Deserialize
         Gson gson = new Gson();
         ListContainer savedCommonLists = gson.fromJson(commonListContainers, ListContainer.class);
         ExpirationListContainer savedExpirationListContainer = gson.fromJson(expirationListContainers, ExpirationListContainer.class);
+        ListContainer savedToDoListContainer = gson.fromJson(toDoListContainers, ListContainer.class);
 
         //Check for null
         if (savedCommonLists == null){
@@ -134,6 +143,12 @@ public class MainActivity extends AppCompatActivity {
         else{
             this.ExpirationListContainer = savedExpirationListContainer;
         }
+        if (savedToDoListContainer == null) {
+            this.ToDoLists = new ListContainer();
+        }
+        else {
+            this.ToDoLists = savedToDoListContainer;
+        }
     }
 
     /**
@@ -145,7 +160,7 @@ public class MainActivity extends AppCompatActivity {
      * </p>
      * @param view
      */
-    public void onDisplayCommonLists(View view){
+    public void onDisplayOtherLists(View view){
         Intent intent = new Intent(this, DisplayOtherListContainerActivity.class);
 
         //Prepare JSON CommonLists data
@@ -153,7 +168,29 @@ public class MainActivity extends AppCompatActivity {
         String json = gson.toJson(OtherLists);
 
         //Create intend
-        intent.putExtra(COMMON_JSON_DATA,json);
+        intent.putExtra(OTHER_JSON_DATA,json);
+        startActivity(intent);
+
+    }
+
+    /**
+     * Displays the {@link com.example.projectmemory.List}s from {@link MainActivity#ToDoLists}
+     *
+     * <p>
+     *     Serialize {@link MainActivity#ToDoLists} to load it to the intend, so it can be accessed
+     *     from {@link DisplayToDoListContainerActivity}.
+     * </p>
+     * @param view
+     */
+    public void onDisplayToDoLists(View view){
+        Intent intent = new Intent(this, DisplayToDoListContainerActivity.class);
+
+        //Prepare JSON CommonLists data
+        Gson gson = new Gson();
+        String json = gson.toJson(ToDoLists);
+
+        //Create intend
+        intent.putExtra(TO_DO_JSON_DATA,json);
         startActivity(intent);
 
     }

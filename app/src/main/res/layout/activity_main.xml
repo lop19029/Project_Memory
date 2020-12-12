@@ -95,6 +95,7 @@
             </androidx.cardview.widget.CardView>
             <androidx.cardview.widget.CardView
                 android:clickable="true"
+                android:onClick="onDisplayToDoLists"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
@@ -124,7 +125,7 @@
             </androidx.cardview.widget.CardView>
             <androidx.cardview.widget.CardView
                 android:clickable="true"
-                android:onClick="onDisplayCommonLists"
+                android:onClick="onDisplayOtherLists"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"

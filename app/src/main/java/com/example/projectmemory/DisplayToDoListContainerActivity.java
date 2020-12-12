@@ -20,22 +20,24 @@ import com.google.gson.Gson;
 import java.util.ArrayList;
 
 /**
- * Displays the {@link com.example.projectmemory.List}s from {@link MainActivity#OtherLists}
+ * Displays the {@link com.example.projectmemory.List}s from {@link MainActivity#ToDoLists}
  *
  * <p>
- *     Deserialize the JSON object coming from {@link MainActivity#onDisplayOtherLists} and load
- *     each list name into the {@link DisplayOtherListContainerActivity#listView} using the {@link DisplayOtherListContainerActivity#adapter}
+ *     Deserialize the JSON object coming from {@link MainActivity#onDisplayToDoLists} and load
+ *     each list name into the {@link DisplayToDoListContainerActivity#listView} using the
+ *     {@link DisplayToDoListContainerActivity#adapter}
  *     Also handles user interaction with the list view using and event handler, and calling
- *     {@link DisplayOtherListContainerActivity#onDisplayList} when the user clicks on a list name.
+ *     {@link DisplayToDoListContainerActivity#onDisplayToDoList} when the user clicks on a list name.
  * </p>
  *
  * @author Alex Lopez
  */
-public class DisplayOtherListContainerActivity extends AppCompatActivity {
-    public static final String OTHER_LIST = "OTHER_LIST"; //Used to create the intent
+
+public class DisplayToDoListContainerActivity extends AppCompatActivity {
+    public static final String TO_DO_LIST = "TO_DO_LIST"; //Used to create the intent
     private ArrayAdapter adapter;
     private SwipeMenuListView listView;
-    ListContainer otherLists;
+    ListContainer toDoLists;
 
     /**
      * Deserialize the object coming from the intent.
@@ -47,23 +49,23 @@ public class DisplayOtherListContainerActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_display_other_lists);
+        setContentView(R.layout.activity_display_to_do_list_container);
         this.listView = (SwipeMenuListView) findViewById(R.id.toDoListsListView);
-        this.setTitle("Other Lists");
+        this.setTitle("To Do Lists");
 
         // Get the Intent that started this activity and extract the string
         Intent intent = getIntent();
-        String listContainer = intent.getStringExtra(MainActivity.OTHER_JSON_DATA);
+        String listContainer = intent.getStringExtra(MainActivity.TO_DO_JSON_DATA);
 
         //Prepare JSON CommonLists data
         Gson gson = new Gson();
-        this.otherLists = gson.fromJson(listContainer, ListContainer.class);
+        this.toDoLists = gson.fromJson(listContainer, ListContainer.class);
 
         //Set List View
-        if(otherLists.names == null){
-            otherLists.names = new ArrayList<>();
+        if(this.toDoLists.names == null){
+            this.toDoLists.names = new ArrayList<>();
         }
-        ArrayList<String> lists = otherLists.names;
+        ArrayList<String> lists = toDoLists.names;
         adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, lists);
         listView.setAdapter(adapter);
 
@@ -95,7 +97,7 @@ public class DisplayOtherListContainerActivity extends AppCompatActivity {
             public boolean onMenuItemClick(int position, SwipeMenu menu, int index) {
                 switch (index) {
                     case 0:
-                        onDeleteList(position);
+                        onDeleteToDoList(position);
 
                         break;
                 }
@@ -108,45 +110,32 @@ public class DisplayOtherListContainerActivity extends AppCompatActivity {
         this.listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                onDisplayList(position);
+                onDisplayToDoList(position);
             }
         });
-    }
 
+    }
     /**
      * Display the items inside a list
      *
      * <p>
      *     Use the position of the clicked row of the ListView to find and display the correct list
-     *     from {@link DisplayOtherListContainerActivity#otherLists}
+     *     from {@link DisplayToDoListContainerActivity#toDoLists}
      * </p>
      * @param position
      */
-    public void onDisplayList(int position){
-        //Initialize intent
-        Intent intent = new Intent(this, DisplayOtherListActivity.class);
+    public void onDisplayToDoList(int position){
 
-        //Take called list
-        List list = this.otherLists.lists.get(position);
-
-        //Serialize the list
-        Gson gson = new Gson();
-        String json = gson.toJson(list);
-
-        //Add list to the intend
-        intent.putExtra(OTHER_LIST,json);
-        startActivity(intent);
     }
-
     /**
      * Permanently deletes a {@link List}
      * @param position
      */
-    public void onDeleteList(int position){
-       //delete list
-        String listName = otherLists.names.get(position);
-        MainActivity.OtherLists.deleteList(position);
-        otherLists.deleteList(position);
+    public void onDeleteToDoList(int position){
+        //delete list
+        String listName = toDoLists.names.get(position);
+        MainActivity.ToDoLists.deleteList(position);
+        toDoLists.deleteList(position);
 
         //Close the activity to reload
         finish();
@@ -154,5 +143,4 @@ public class DisplayOtherListContainerActivity extends AppCompatActivity {
         //Notify the user
         Toast.makeText(this, listName + " was permanently deleted", Toast.LENGTH_SHORT).show();
     }
-    }
-
+}

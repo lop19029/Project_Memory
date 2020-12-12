@@ -60,7 +60,7 @@ public class DisplayOtherListActivity extends AppCompatActivity {
 
         // Get the Intent that started this activity and extract the string
         Intent intent = getIntent();
-        String listInfo = intent.getStringExtra(DisplayOtherListContainerActivity.LIST);
+        String listInfo = intent.getStringExtra(DisplayOtherListContainerActivity.OTHER_LIST);
 
         //Prepare JSON CommonLists data
         Gson gson = new Gson();

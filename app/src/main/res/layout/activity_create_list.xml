@@ -39,6 +39,7 @@
 
     <Button
         android:id="@+id/button2"
+        android:onClick="onCreateToDoList"
         android:layout_width="wrap_content"
         android:layout_height="35dp"
         android:layout_alignParentTop="true"
@@ -51,7 +52,7 @@
 
     <Button
         android:id="@+id/button4"
-        android:onClick="onCreateCommonList"
+        android:onClick="onCreateOtherList"
         android:layout_width="wrap_content"
         android:layout_height="35dp"
         android:layout_alignParentTop="true"
