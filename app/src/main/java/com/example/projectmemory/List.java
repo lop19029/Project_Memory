@@ -2,6 +2,7 @@ package com.example.projectmemory;
 
 import java.util.ArrayList;
 
+import static com.example.projectmemory.ListType.Other;
 import static com.example.projectmemory.ListType.Todo;
 
 public class List {
@@ -12,7 +13,7 @@ public class List {
 
     public List(String name) {
         this.name = name;
-        this.defaultType = Todo;
+        this.defaultType = Other;
         this.items = new ArrayList<>();
         if (this.itemsNames == null) { //Avoid NullPointerException
             itemsNames = new ArrayList<>();

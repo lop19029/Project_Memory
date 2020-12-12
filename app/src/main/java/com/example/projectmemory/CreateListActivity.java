@@ -70,4 +70,27 @@ public class CreateListActivity extends AppCompatActivity {
         //Notify the user
         Toast.makeText(this, listName + " added to your To Do Lists", Toast.LENGTH_SHORT).show();
     }
+    /**
+     * When the user press the button, create a new Shopping list
+     *
+     * <p>
+     *     Takes the user input from the EditText in {@link com.example.projectmemory.R.layout#activity_create_list}
+     *     and use it as a name to crate a new {@link com.example.projectmemory.ShoppingList} and add it to
+     *     {@link com.example.projectmemory.MainActivity#ShoppingLists}
+     * </p>
+     *
+     * @param view
+     * @return {@link com.example.projectmemory.List}
+     * */
+    public void onCreateShoppingList(View view) {
+        //Get list name
+        EditText list = (EditText) findViewById(R.id.userInput);
+        String listName = list.getText().toString();
+
+        //Create List
+        MainActivity.ShoppingLists.createList(listName);
+
+        //Notify the user
+        Toast.makeText(this, listName + " added to your Shopping Lists", Toast.LENGTH_SHORT).show();
+    }
 }

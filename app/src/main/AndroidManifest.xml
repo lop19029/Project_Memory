@@ -9,7 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ProjectMemory">
-        <activity android:name=".DisplayToDoListActivity"></activity>
+        <activity android:name=".DisplayShoppingListActivity"></activity>
+        <activity android:name=".DisplayShoppingListContainerActivity" />
+        <activity android:name=".DisplayToDoListActivity" />
         <activity android:name=".DisplayToDoListContainerActivity" />
         <activity android:name=".CreateListActivity" />
         <activity android:name=".DisplayExpirationListActivity" />

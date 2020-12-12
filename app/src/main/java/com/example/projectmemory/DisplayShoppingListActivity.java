@@ -6,14 +6,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.graphics.Paint;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.baoyz.swipemenulistview.SwipeMenu;
@@ -25,27 +22,28 @@ import com.google.gson.Gson;
 import java.util.ArrayList;
 
 /**
- * Handle display and creation of {@link com.example.projectmemory.Item}s
+ * Handle display and creation of {@link com.example.projectmemory.FoodItem}s
  *
  * <p>
- *     Receive a specific list from {@link DisplayToDoListContainerActivity} and display all the
- *     {@link com.example.projectmemory.Item}s from inside it.
+ *     Receive a specific list from {@link DisplayShoppingListContainerActivity} and display all the
+ *     {@link com.example.projectmemory.FoodItem}s from inside it.
  *     Also let the user enter new items to the list or delete them. All the items are saved using
  *     SharedPreferences.
  * </p>
  *
  * @author Alex Lopez
  */
-public class DisplayToDoListActivity extends AppCompatActivity {
+public class DisplayShoppingListActivity extends AppCompatActivity {
     private ArrayAdapter adapter;
     private SwipeMenuListView listView;
-    List list;
+    ShoppingList list;
     public static final String APP_PREFS = "APPLICATION_PREFERENCES";
+
     /**
      * Populate the list view
      *
      * <p>
-     *     Deserialize the object coming from {@link DisplayToDoListContainerActivity#onDisplayToDoList} and display
+     *     Deserialize the object coming from {@link DisplayShoppingListContainerActivity#onDisplayShoppingList} and display
      *     each {@link Item} of it.
      * </p>
      * @param savedInstanceState
@@ -53,17 +51,17 @@ public class DisplayToDoListActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_display_to_do_list);
-        this.listView = (SwipeMenuListView) findViewById(R.id.ToDoListListView);
+        setContentView(R.layout.activity_on_display_shopping_list);
+        this.listView = (SwipeMenuListView) findViewById(R.id.ShoppingItemsListListView);
 
         // Get the Intent that started this activity and extract the string
         Intent intent = getIntent();
-        String listInfo = intent.getStringExtra(DisplayToDoListContainerActivity.TO_DO_LIST);
+        String listInfo = intent.getStringExtra(DisplayShoppingListContainerActivity.SHOPPING_LIST);
 
         //Prepare JSON CommonLists data
         Gson gson = new Gson();
-        this.list = gson.fromJson(listInfo,List.class);
-        loadToDoItems();
+        this.list = gson.fromJson(listInfo,ShoppingList.class);
+        loadShoppingItems();
         //Set the title of the list
         this.setTitle(this.list.name);
 
@@ -116,10 +114,10 @@ public class DisplayToDoListActivity extends AppCompatActivity {
             public boolean onMenuItemClick(int position, SwipeMenu menu, int index) {
                 switch (index) {
                     case 0:
-                        checkAsDone(position);
+                        checkAsBought(position);
                         break;
                     case 1:
-                        onDeleteToDoItem(position);
+                        onDeleteShoppingItem(position);
                         break;
                 }
                 // false : close the menu; true : not close the menu
@@ -133,13 +131,12 @@ public class DisplayToDoListActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        saveToDoItems();
+        saveShoppingItems();
     }
-
     /**
      * Use SharedPreferences to save all the items inside the List
      */
-    private void saveToDoItems(){
+    private void saveShoppingItems() {
         //Use SharedPreferences to store all the lists
         SharedPreferences sharedPreferences = getSharedPreferences(APP_PREFS, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -155,15 +152,15 @@ public class DisplayToDoListActivity extends AppCompatActivity {
     /**
      * Use SharedPreferences to load all the items inside a List
      */
-    private void loadToDoItems(){
+    private void loadShoppingItems(){
         SharedPreferences sharedPreferences = getSharedPreferences(APP_PREFS, Context.MODE_PRIVATE);
 
         //Load shared preferences
-        String commonList = sharedPreferences.getString(this.list.name, null);
+        String shoppingList = sharedPreferences.getString(this.list.name, null);
 
         //Deserialize
         Gson gson = new Gson();
-        List savedItems = gson.fromJson(commonList, List.class);
+        ShoppingList savedItems = gson.fromJson(shoppingList, ShoppingList.class);
 
 
         //Check for null
@@ -177,24 +174,43 @@ public class DisplayToDoListActivity extends AppCompatActivity {
     /**
      * Add new {@link Item}s to this list
      */
-    public void onAddNewToDoItem (View view) {
-        EditText item = (EditText) findViewById(R.id.addNewToDoItem); //Get item name
+    public void onAddNewShoppingItem (View view) {
+        EditText item = (EditText) findViewById(R.id.addNewShoppingItem); //Get item name
         String itemName = item.getText().toString();
         this.list.addItem(itemName);
         Toast.makeText(this, String.format("%s added to the list", itemName), Toast.LENGTH_SHORT).show();
     }
+    /**
+     * Checks an item as done
+     */
+    private void checkAsBought(int position) {
+        //Add a Date value
+        //Check for a Date
+        //Avoid check the item as done multiple times
+        String name = this.list.itemsNames.get(position);
+        if (!name.contains("- Done")) {
+            //Check Item as Done
+            this.list.editItemName(position);
 
+            //Refresh SharedPreferences
+            saveShoppingItems();
+
+            //Reload the page
+            finish();
+            startActivity(getIntent());
+        }
+    }
     /**
      * Deletes an Item from this List
      * @param position
      */
-    private void onDeleteToDoItem(int position) {
+    private void onDeleteShoppingItem(int position) {
         //Delete the item
         String itemName = this.list.itemsNames.get(position);
         this.list.deleteItem(position);
 
         //Refresh SharedPreferences
-        saveToDoItems();
+        saveShoppingItems();
 
         //Reload the page
         finish();
@@ -204,24 +220,4 @@ public class DisplayToDoListActivity extends AppCompatActivity {
         Toast.makeText(this, itemName + " deleted", Toast.LENGTH_SHORT).show();
     }
 
-    /**
-     * Checks an item as done
-     */
-    private void checkAsDone(int position) {
-
-            //Avoid check the item as done multiple times
-            String name = this.list.itemsNames.get(position);
-            if(!name.contains("- Done")) {
-                //Check Item as Done
-                this.list.editItemName(position);
-
-                //Refresh SharedPreferences
-                saveToDoItems();
-
-                //Reload the page
-                finish();
-                startActivity(getIntent());
-            }
-
-        }
 }

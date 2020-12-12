@@ -25,9 +25,11 @@ import com.google.gson.Gson;
 public class MainActivity extends AppCompatActivity {
     public static ListContainer OtherLists;
     public static ListContainer ToDoLists;
+    public static ShoppingListContainer ShoppingLists;
     public ExpirationListContainer ExpirationListContainer;
     public static final String EXP_JSON_DATA = "EXP_JSON_DATA";
     public static final String OTHER_JSON_DATA = "COMMON_JSON_DATA";
+    public static final String SHOPPING_JSON_DATA = "SHOPPING_JSON_DATA";
     public static final String TO_DO_JSON_DATA = "TO_DO_JSON_DATA";
     public static final String APP_PREFS = "APPLICATION_PREFERENCES";
     /**
@@ -84,7 +86,6 @@ public class MainActivity extends AppCompatActivity {
      *     objects and then use shared preferences to save them all.
      * </p>*/
     public void saveLists(){
-        //TODO: Save all the ListContainers here
         //Use SharedPreferences to store all the lists
         SharedPreferences sharedPreferences = getSharedPreferences(APP_PREFS, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -107,6 +108,11 @@ public class MainActivity extends AppCompatActivity {
         editor.putString(TO_DO_JSON_DATA, json3);
         editor.apply();
 
+        //Prepare ShoppingLists JSON
+        String json4 = gson.toJson(ShoppingLists);
+        editor.putString(SHOPPING_JSON_DATA, json4);
+        editor.apply();
+
     }
     /**
      * Load all the {@link com.example.projectmemory.ListContainer}s
@@ -115,19 +121,20 @@ public class MainActivity extends AppCompatActivity {
      *     and load them as {@link com.example.projectmemory.ListContainer}s
      * </p>*/
     public void loadLists(){
-        //TODO: Load all the ListContainers here.
         SharedPreferences sharedPreferences = getSharedPreferences(APP_PREFS, Context.MODE_PRIVATE);
 
         //Load shared preferences
         String commonListContainers = sharedPreferences.getString(OTHER_JSON_DATA, null);
         String expirationListContainers = sharedPreferences.getString(EXP_JSON_DATA, null);
         String toDoListContainers = sharedPreferences.getString(TO_DO_JSON_DATA,null);
+        String shoppingListContainers = sharedPreferences.getString(SHOPPING_JSON_DATA, null);
 
         //Deserialize
         Gson gson = new Gson();
         ListContainer savedCommonLists = gson.fromJson(commonListContainers, ListContainer.class);
         ExpirationListContainer savedExpirationListContainer = gson.fromJson(expirationListContainers, ExpirationListContainer.class);
         ListContainer savedToDoListContainer = gson.fromJson(toDoListContainers, ListContainer.class);
+        ShoppingListContainer savedShoppingListContainer = gson.fromJson(shoppingListContainers, ShoppingListContainer.class);
 
         //Check for null
         if (savedCommonLists == null){
@@ -148,6 +155,12 @@ public class MainActivity extends AppCompatActivity {
         }
         else {
             this.ToDoLists = savedToDoListContainer;
+        }
+        if(savedShoppingListContainer == null) {
+            this.ShoppingLists = new ShoppingListContainer();
+        }
+        else {
+            this.ShoppingLists = savedShoppingListContainer;
         }
     }
 
@@ -204,6 +217,18 @@ public class MainActivity extends AppCompatActivity {
 
         //Create intend
         intent.putExtra(EXP_JSON_DATA, json);
+        startActivity(intent);
+    }
+
+    public void onDisplayShoppingLists(View view){
+        Intent intent = new Intent(this, DisplayShoppingListContainerActivity.class);
+
+        //Prepare JSON ExpirationLists data
+        Gson gson = new Gson();
+        String json = gson.toJson(ShoppingLists);
+
+        //Create intend
+        intent.putExtra(SHOPPING_JSON_DATA, json);
         startActivity(intent);
     }
 }
