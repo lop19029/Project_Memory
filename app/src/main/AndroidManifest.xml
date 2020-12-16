@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.projectmemory">
+    package="com.example.projectmemory" >
 
     <application
         android:allowBackup="true"
@@ -8,8 +8,10 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.ProjectMemory">
-        <activity android:name=".DisplayShoppingListActivity"></activity>
+        android:theme="@style/Theme.ProjectMemory" >
+        <activity android:name=".DisplayComingSoonActivity" >
+        </activity>
+        <activity android:name=".DisplayShoppingListActivity" />
         <activity android:name=".DisplayShoppingListContainerActivity" />
         <activity android:name=".DisplayToDoListActivity" />
         <activity android:name=".DisplayToDoListContainerActivity" />
@@ -18,7 +20,7 @@
         <activity android:name=".DisplayExpirationListContainerActivity" />
         <activity android:name=".DisplayOtherListActivity" />
         <activity android:name=".DisplayOtherListContainerActivity" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

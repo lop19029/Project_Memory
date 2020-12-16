@@ -231,5 +231,10 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra(SHOPPING_JSON_DATA, json);
         startActivity(intent);
     }
+
+    public void onDisplayComingSoon (View view) {
+        Intent intent = new Intent(this, DisplayComingSoonActivity.class);
+        startActivity(intent);
+    }
 }
 

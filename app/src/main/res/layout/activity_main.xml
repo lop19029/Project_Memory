@@ -65,7 +65,7 @@
             </androidx.cardview.widget.CardView>
             <androidx.cardview.widget.CardView
                 android:clickable="true"
-                android:onClick="onDisplayExpirationLists"
+                android:onClick="onDisplayComingSoon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
